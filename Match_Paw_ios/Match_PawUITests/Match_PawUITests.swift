@@ -34,6 +34,19 @@ final class Match_PawUITests: XCTestCase {
     }
 
     @MainActor
+    func testAnimalDetailFitsOnScreen() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let brownie = app.staticTexts["Brownie"]
+        XCTAssertTrue(brownie.waitForExistence(timeout: 10))
+        brownie.tap()
+
+        XCTAssertTrue(app.staticTexts["Toy poodle"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Apply for Adoption"].exists)
+    }
+
+    @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {

@@ -29,6 +29,7 @@ struct HomeView: View {
                         }
                         .padding(.horizontal)
                     }
+                    .frame(maxWidth: .infinity)
 
                     if animalVM.isLoading {
                         ProgressView()
@@ -51,20 +52,33 @@ struct HomeView: View {
                             .padding(.top, 40)
                         } else {
                             LazyVGrid(
-                                columns: [GridItem(.flexible()), GridItem(.flexible())],
+                                columns: [
+                                    GridItem(.flexible(minimum: 0), spacing: 12),
+                                    GridItem(.flexible(minimum: 0))
+                                ],
                                 spacing: 16
                             ) {
                                 ForEach(list) { animal in
-                                    NavigationLink(value: animal) {
-                                        AnimalCardView(animal: animal)
+                                    GeometryReader { proxy in
+                                        NavigationLink(value: animal) {
+                                            AnimalCardView(animal: animal)
+                                                .frame(
+                                                    width: proxy.size.width,
+                                                    height: proxy.size.height
+                                                )
+                                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                        }
+                                        .buttonStyle(.plain)
                                     }
-                                    .buttonStyle(.plain)
+                                    .frame(height: 230)
                                 }
                             }
                             .padding(.horizontal)
+                            .frame(maxWidth: .infinity)
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical)
             }
             .navigationTitle("Animals")
