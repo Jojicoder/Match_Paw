@@ -36,7 +36,24 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.matchpaw.App</mainClass>
+                    <mainClass>com.matchpaw/com.matchpaw.App</mainClass>
+                    <launcher>matchpaw</launcher>
+                    <jlinkImageName>matchpaw-runtime</jlinkImageName>
+                    <noManPages>true</noManPages>
+                    <stripDebug>true</stripDebug>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <jpackage>
+                        <installerType>exe</installerType>
+                        <appVersion>${project.version}</appVersion>
+                        <vendor>MatchPaw</vendor>
+                        <installerName>MatchPaw</installerName>
+                        <icon>src/main/resources/icon.ico</icon>
+                        <installerOptions>
+                            <installerOption>--win-dir-chooser</installerOption>
+                            <installerOption>--win-menu</installerOption>
+                            <installerOption>--win-shortcut</installerOption>
+                        </installerOptions>
+                    </jpackage>
                 </configuration>
             </plugin>
         </plugins>

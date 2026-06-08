@@ -1,0 +1,32 @@
+name: Build Windows Installer
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install WiX Toolset
+        run: choco install wixtoolset -y
+
+      - name: Build Windows Installer
+        run: mvn clean javafx:jlink javafx:jpackage
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: MatchPaw-Windows-Installer
+          path: target/*.exe
