@@ -23,10 +23,11 @@ jobs:
         run: choco install wixtoolset -y
 
       - name: Build Windows Installer
+        working-directory: Match_paw_desktop
         run: mvn clean javafx:jlink javafx:jpackage
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: MatchPaw-Windows-Installer
-          path: target/*.exe
+          path: Match_paw_desktop/target/*.exe
