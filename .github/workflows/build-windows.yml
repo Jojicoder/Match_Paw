@@ -26,9 +26,13 @@ jobs:
         working-directory: Match_paw_desktop
         run: mvn clean javafx:jlink
 
-      - name: Create Windows installer (jpackage)
+      - name: Create app image (jpackage phase 1)
         working-directory: Match_paw_desktop
-        run: jpackage --app-image target/matchpaw-runtime --type exe --name MatchPaw --app-version 1.0.0 --vendor MatchPaw --dest target/installer --win-dir-chooser --win-menu --win-shortcut --icon src/main/resources/icon.ico
+        run: jpackage --type app-image --name MatchPaw --module com.matchpaw/com.matchpaw.App --runtime-image target/matchpaw-runtime --dest target
+
+      - name: Create Windows installer (jpackage phase 2)
+        working-directory: Match_paw_desktop
+        run: jpackage --type exe --app-image target/MatchPaw --dest target/installer --name MatchPaw --app-version 1.0.0 --vendor MatchPaw --win-dir-chooser --win-menu --win-shortcut --icon src/main/resources/icon.ico
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
