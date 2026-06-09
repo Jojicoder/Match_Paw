@@ -42,18 +42,7 @@
                     <noManPages>true</noManPages>
                     <stripDebug>true</stripDebug>
                     <noHeaderFiles>true</noHeaderFiles>
-                    <jpackage>
-                        <installerType>exe</installerType>
-                        <appVersion>${project.version}</appVersion>
-                        <vendor>MatchPaw</vendor>
-                        <installerName>MatchPaw</installerName>
-                        <icon>src/main/resources/icon.ico</icon>
-                        <installerOptions>
-                            <installerOption>--win-dir-chooser</installerOption>
-                            <installerOption>--win-menu</installerOption>
-                            <installerOption>--win-shortcut</installerOption>
-                        </installerOptions>
-                    </jpackage>
+
                 </configuration>
             </plugin>
         </plugins>

@@ -22,12 +22,16 @@ jobs:
       - name: Install WiX Toolset
         run: choco install wixtoolset -y
 
-      - name: Build Windows Installer
+      - name: Build runtime image (jlink)
         working-directory: Match_paw_desktop
-        run: mvn clean javafx:jlink javafx:jpackage
+        run: mvn clean javafx:jlink
+
+      - name: Create Windows installer (jpackage)
+        working-directory: Match_paw_desktop
+        run: jpackage --app-image target/matchpaw-runtime --type exe --name MatchPaw --app-version 1.0.0 --vendor MatchPaw --dest target/installer --win-dir-chooser --win-menu --win-shortcut --icon src/main/resources/icon.ico
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: MatchPaw-Windows-Installer
-          path: Match_paw_desktop/target/*.exe
+          path: Match_paw_desktop/target/installer/*.exe
